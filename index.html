@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Einladung – Ein Abend mit Geheimnis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Alegreya:ital,wght@0,500;0,700;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tafel:#272B26;
+    --tafel-hell:#31362F;
+    --kreide:#F3EFE3;
+    --kreide-dim:#C9C4B2;
+    --wirtshausrot:#B8402F;
+    --messing:#D9A441;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:#1C1F1B;
+    font-family:'Alegreya Sans',sans-serif;
+    color:var(--kreide);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px 48px;
+    min-height:100vh;
+  }
+  .karte{
+    width:100%;
+    max-width:460px;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.045), transparent 55%),
+      radial-gradient(ellipse at 75% 80%, rgba(255,255,255,.03), transparent 50%),
+      var(--tafel);
+    border-radius:10px;
+    box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 0 1px rgba(243,239,227,.08);
+    overflow:hidden;
+    position:relative;
+  }
+  /* Karo-Band wie eine Wirtshaus-Tischdecke */
+  .karo{
+    height:22px;
+    background:
+      repeating-conic-gradient(var(--wirtshausrot) 0% 25%, var(--kreide) 0% 50%)
+      0 0 / 22px 22px;
+  }
+  .innen{padding:36px 34px 30px;text-align:center;}
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--messing);
+    font-weight:700;
+  }
+  h1{
+    font-family:'Caveat',cursive;
+    font-weight:700;
+    font-size:52px;
+    line-height:1.05;
+    margin:14px 0 6px;
+    color:var(--kreide);
+    text-shadow:0 0 14px rgba(243,239,227,.15);
+  }
+  .an{
+    font-family:'Alegreya',serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--kreide-dim);
+    margin-bottom:26px;
+  }
+  .an strong{color:var(--kreide);font-style:normal;}
+
+  .fakten{
+    display:flex;
+    justify-content:center;
+    gap:0;
+    border-top:1px dashed rgba(243,239,227,.25);
+    border-bottom:1px dashed rgba(243,239,227,.25);
+    margin:0 0 30px;
+  }
+  .fakt{flex:1;padding:14px 6px;}
+  .fakt + .fakt{border-left:1px dashed rgba(243,239,227,.25);}
+  .fakt .l{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--kreide-dim);}
+  .fakt .w{font-family:'Alegreya',serif;font-size:18px;font-weight:700;margin-top:4px;}
+
+  .menue-titel{
+    font-family:'Caveat',cursive;
+    font-size:30px;
+    color:var(--messing);
+    margin-bottom:4px;
+  }
+  .menue-sub{
+    font-size:13px;
+    color:var(--kreide-dim);
+    margin-bottom:20px;
+    font-style:italic;
+    font-family:'Alegreya',serif;
+  }
+
+  .gang{
+    text-align:left;
+    background:var(--tafel-hell);
+    border:1px solid rgba(243,239,227,.1);
+    border-radius:8px;
+    padding:14px 16px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:transform .15s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .gang:hover{transform:translateY(-2px);}
+  .gang .nr{
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--messing);
+    font-weight:700;
+  }
+  .gang .zensiert{
+    font-family:'Alegreya',serif;
+    font-size:19px;
+    margin:5px 0 4px;
+    color:var(--kreide);
+    position:relative;
+    display:inline-block;
+  }
+  .gang .zensiert .balken{
+    background:repeating-linear-gradient(-45deg, rgba(243,239,227,.85) 0 6px, rgba(243,239,227,.65) 6px 12px);
+    color:transparent;
+    border-radius:3px;
+    padding:0 6px;
+    user-select:none;
+  }
+  .gang .hint{
+    font-size:14px;
+    color:var(--kreide-dim);
+    font-style:italic;
+    font-family:'Alegreya',serif;
+  }
+  .gang .geheim{
+    display:none;
+    margin-top:8px;
+    font-family:'Caveat',cursive;
+    font-size:20px;
+    color:var(--wirtshausrot);
+    filter:brightness(1.4);
+  }
+  .gang.auf .geheim{display:block;animation:pop .25s ease;}
+  @keyframes pop{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  .fusszeile{
+    margin-top:28px;
+    padding-top:20px;
+    border-top:1px dashed rgba(243,239,227,.25);
+  }
+  .fusszeile .zeile{
+    font-size:14px;
+    color:var(--kreide-dim);
+    margin-bottom:6px;
+  }
+  .fusszeile .zeile b{color:var(--kreide);}
+  .gastgeber{
+    font-family:'Caveat',cursive;
+    font-size:26px;
+    color:var(--kreide);
+    margin-top:14px;
+  }
+  .pfoten{font-size:13px;color:var(--kreide-dim);margin-top:2px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .gang, .gang.auf .geheim{transition:none;animation:none;}
+  }
+  @media (max-width:380px){
+    h1{font-size:42px;}
+    .innen{padding:28px 20px 24px;}
+  }
+</style>
+</head>
+<body>
+  <div class="karte">
+    <div class="karo"></div>
+    <div class="innen">
+      <div class="eyebrow">Ihr seid eingeladen</div>
+      <h1>Ein Abend<br>mit Geheimnis</h1>
+      <p class="an">Liebe <strong>Tanja</strong>, lieber <strong>Randy</strong> – kommt hungrig. Mehr wird nicht verraten.</p>
+
+      <div class="fakten">
+        <div class="fakt">
+          <div class="l">Wann</div>
+          <div class="w">Sa, 4. Juli</div>
+        </div>
+        <div class="fakt">
+          <div class="l">Uhrzeit</div>
+          <div class="w">18:30 Uhr</div>
+        </div>
+        <div class="fakt">
+          <div class="l">Wo</div>
+          <div class="w">Bei uns</div>
+        </div>
+      </div>
+
+      <div class="menue-titel">Das Menü</div>
+      <div class="menue-sub">Drei Gänge. Null Auskunft. (Antippen hilft auch nicht.)</div>
+
+      <div class="gang" onclick="this.classList.toggle('auf')">
+        <div class="nr">Erster Gang</div>
+        <div class="zensiert"><span class="balken">Streng geheime Vorspeise</span></div>
+        <div class="hint">In der Brühe schwimmt dreierlei – und mindestens eines davon hat etwas zu verbergen.</div>
+        <div class="geheim">No it hudla – wird nix verrata!</div>
+      </div>
+
+      <div class="gang" onclick="this.classList.toggle('auf')">
+        <div class="nr">Zweiter Gang</div>
+        <div class="zensiert"><span class="balken">Streng geheimer Hauptgang</span></div>
+        <div class="hint">Hier wird geschabt, nicht gerollt – und obendrauf zieht etwas lange Fäden.</div>
+        <div class="geheim">Geduld – des gibt's erst am Disch!</div>
+      </div>
+
+      <div class="gang" onclick="this.classList.toggle('auf')">
+        <div class="nr">Dritter Gang</div>
+        <div class="zensiert"><span class="balken">Streng geheimer Nachtisch</span></div>
+        <div class="hint">Ein ungleiches Paar: Der eine wird zerrupft, der andere schmilzt dahin.</div>
+        <div class="geheim">Schwätz net – ess!</div>
+      </div>
+
+      <div class="fusszeile">
+        <div class="zeile">Kleiner Tipp: Die Wahrheit liegt <b>südlich der Mainlinie</b>.</div>
+        <div class="zeile">Dresscode: <b>dehnbare Hose</b> ausdrücklich empfohlen.</div>
+        <div class="gastgeber">Dennis &amp; Stefanie</div>
+        <div class="pfoten">(Yuki, Nala, Bailey &amp; Pacifica übernehmen den Empfang)</div>
+      </div>
+    </div>
+    <div class="karo"></div>
+  </div>
+</body>
+</html>
